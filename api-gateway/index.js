@@ -15,9 +15,10 @@ app.use(express.json());
 //     useTempFiles: true,
 //   })
 // );
-const BASE_URL = process.env.BASE_URL || "http://localhost";
+const USER_BASE_URL = process.env.USER_BASE_URL;
+const DISCUSSION_BASE_URL = process.env.DISCUSSION_BASE_URL;
 
-const proxyMiddleware = proxy(BASE_URL + ":8002", {
+const proxyMiddleware = proxy(DISCUSSION_BASE_URL || "http://localhost:8002", {
     // proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
     //     proxyReqOpts.headers['Content-Type'] = srcReq.headers['content-type'];
     //     return proxyReqOpts;
@@ -38,7 +39,7 @@ const proxyMiddleware = proxy(BASE_URL + ":8002", {
 //     res.send("Hello");
 // })
 
-app.use("/user", proxy(BASE_URL + ":8001"));
+app.use("/user", proxy(USER_BASE_URL || "http://localhost:8001"));
 app.use("/discussion", proxyMiddleware);
 // app.use("/", proxy("http://localhost:8002")); 
 
