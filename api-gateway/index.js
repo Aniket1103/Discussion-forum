@@ -10,7 +10,7 @@ import expressFileUpload from 'express-fileupload';
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 // app.use(bodyParser.urlencoded({extended: true}))
 // app.use(
 //     expressFileUpload({
@@ -24,10 +24,10 @@ const DISCUSSION_BASE_URL = process.env.DISCUSSION_BASE_URL || "http://localhost
 const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 app.use('/', async (req, res, next) => {
-  const key = req.originalUrl + "&token=" + req.cookies.token;
-//   console.log(key);
+  const key = req.originalUrl + "&token=" + req.cookies?.token;
+  console.log(req.method);
 
-  if(req.method === 'GET' && (req.cookies.token.length > 0)){
+  if(req.method === 'GET' && (req.cookies.token && req.cookies.token.length > 0)){
       // Check if response is in cache
       const cachedResponse = cache.get(key);
       if (cachedResponse) {
@@ -52,17 +52,18 @@ app.use('/', async (req, res, next) => {
 
   // Use proxy
   proxy(targetUrl, {
-    proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
-      proxyReqOpts.headers['Content-Type'] = 'application/json';
-      return proxyReqOpts;
-    },
+    // proxyReqOptDecorator: (proxyReqOpts, srcReq) => {
+    //   proxyReqOpts.headers['Content-Type'] = 'application/json';
+    //   return proxyReqOpts;
+    // },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
       // Storing response in cache
       const responseData = proxyResData.toString('utf8');
     //   console.log(responseData)
       if(req.method === 'GET') cache.set(key, responseData);
       return (responseData);
-    }
+    },
+    parseReqBody: false
   })(req, res, next);
 });
 

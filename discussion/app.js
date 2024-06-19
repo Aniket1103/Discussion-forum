@@ -20,7 +20,6 @@ const corsOptions = {
     credentials: true, // to allow credentials (cookies, authorization headers, etc.)
 };
     
-    // For browser cors policies
 app.use(express.json());
 // app.use(express.urlencoded({ extended : true }));
 app.use(cookieParser());
