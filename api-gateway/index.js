@@ -66,7 +66,7 @@ app.use('/', async (req, res, next) => {
       if(req.method === 'GET') cache.set(key, responseData);
       return (responseData);
     },
-    parseReqBody: false
+    parseReqBody: !(req.path.startsWith('/discussion'))
   })(req, res, next);
 });
 
