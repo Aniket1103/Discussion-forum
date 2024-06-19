@@ -36,6 +36,9 @@ app.use('/', async (req, res, next) => {
         return;
       }
   }
+  else if(req.method === 'PATCH' && (req.cookies.token && req.cookies.token.length > 0)){
+      cache.del(key);
+  }
 
   console.log('Cache miss for', key);
 
