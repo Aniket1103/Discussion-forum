@@ -10,7 +10,7 @@ import expressFileUpload from 'express-fileupload';
 const app = express();
 app.use(cors());
 app.use(express.json());
-// app.use(cookieParser());
+app.use(cookieParser());
 // app.use(bodyParser.urlencoded({extended: true}))
 // app.use(
 //     expressFileUpload({
