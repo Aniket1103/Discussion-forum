@@ -76,7 +76,7 @@ export const updateDiscussion = async (req, res) => {
     const { discussionId, text, hashTags } = req.body;
     const userId = req.user._id;
     const file = req.files?.image;
-
+    console.log(discussionId)
     if (!discussionId) {
       return res.status(400).json({ error: 'Discussion ID is required.' });
     }
@@ -102,7 +102,7 @@ export const updateDiscussion = async (req, res) => {
 
     discussion.text = text || discussion.text;
     discussion.image = imageUrl || discussion.image;
-    discussion.hashTags = hashTags.split(",") || discussion.hashTags;
+    discussion.hashTags = hashTags ? hashTags.split(",") : discussion.hashTags;
 
     const updatedDiscussion = await discussion.save();
 

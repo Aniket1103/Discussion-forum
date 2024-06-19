@@ -13,12 +13,12 @@ const router = express.Router();
 
 
 // router.post('/create',isAuthenticated, upload.single('image'), createDiscussion);
-router.post('/create',isAuthenticated, isAuthenticated, createDiscussion);
-router.patch('/update',isAuthenticated, isAuthenticated, updateDiscussion);
+router.post('/create',isAuthenticated, createDiscussion);
+router.patch('/update',isAuthenticated, updateDiscussion);
 router.delete('/delete/:discussionId',isAuthenticated, deleteDiscussion);
-router.get('/search',isAuthenticated, isAuthenticated, getDiscussions);
+router.get('/search',isAuthenticated, getDiscussions);
 
-router.post('/like', isAuthenticated, isAuthenticated, likeItem);
+router.post('/like', isAuthenticated, likeItem);
 router.post('/:discussionId/view', isAuthenticated, incrementViewCount);
 
 export default router;
