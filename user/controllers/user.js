@@ -111,8 +111,10 @@ export const getAllUsers = async (req, res) => {
 
 export const updateUser = async (req, res, next) => {
   try {
-      const { id, name, email, phone, password } = req.body;
+      const { name, email, phone, password } = req.body;
+      const id = req.user?._id;
       const user = await User.findById(id);
+      console.log(id)
 
       if (!user) return next(new ErrorHandler("User not found", 404));
 
@@ -133,7 +135,7 @@ export const updateUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
   try {
-      const user = await User.findById(req.query.id);
+      const user = await User.findById(req.user._id);
       console.log(user)
 
       if (!user) return next(new ErrorHandler("User not found", 404));
