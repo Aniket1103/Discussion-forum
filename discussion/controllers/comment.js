@@ -106,7 +106,7 @@ export const getComments = async (req, res) => {
     const { parentId } = req.query;
 
     if (!parentId) {
-      return res.status(400).json({ error: 'Discussion ID is required.' });
+      return res.status(400).json({ error: 'Parent ID is required.' });
     }
 
     const comments = await Comment.find({ parentId: parentId, type: 'comment' }).populate('replies');
