@@ -19,7 +19,7 @@ const router = express.Router();
 router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/current").get(isAuthenticated, currentUser);
-router.route("/logout").get(logout);
+router.route("/logout").post(logout);
 
 router.route("/getAll").get(isAuthenticated, getAllUsers, errorMiddleware);
 router.route("/update").patch(isAuthenticated, updateUser, errorMiddleware);
